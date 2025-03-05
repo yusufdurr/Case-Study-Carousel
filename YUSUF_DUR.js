@@ -268,13 +268,13 @@
 
                 .carousel {
                     scroll-snap-type: x mandatory;
-                    overflow-x: auto; /* Kaydırmayı koru ama scrollbar'ı gösterme */
-                    -ms-overflow-style: none;  /* IE ve Edge için scrollbar gizleme */
-                    scrollbar-width: none;  /* Firefox için scrollbar gizleme */
+                    overflow-x: auto;
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
                 }
 
                 .carousel::-webkit-scrollbar {
-                    display: none; /* Chrome, Safari ve Opera için scrollbar gizleme */
+                    display: none;
                 }
 
                 .carousel-wrapper {
