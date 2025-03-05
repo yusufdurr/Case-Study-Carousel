@@ -12,7 +12,7 @@
         buildCSS();
 
         // events
-        setScrollEvent();
+        setDragEvent();
         setHeartEvent();
         setNavigationButtonEvent();
     };
@@ -35,7 +35,8 @@
     };
 
     const buildHTML = (products) => {
-        /*Structure
+        /*  Structure
+        
         <div> class='carousel-container'
             <h2> 
             <div> class='carousel-wrapper'
@@ -68,11 +69,16 @@
                     <img src="${product.img}" alt="${product.name}" />
                     <p class="title">${product.name}</p>
                 </a>
-                <div class="heartContainer"> <span class="heart" data-id="${product.id}">❤</span> </div>
+                
+                <div class="heartContainer"> 
+                    <svg class="heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20.576" height="19.483" viewBox="0 0 20.576 19.483">
+                        <path fill="white" data-id="${product.id}" stroke="#555" stroke-width="1.5px" d="M19.032 7.111c-.278-3.063-2.446-5.285-5.159-5.285a5.128 5.128 0 0 0-4.394 2.532 4.942 4.942 0 0 0-4.288-2.532C2.478 1.826.31 4.048.032 7.111a5.449 5.449 0 0 0 .162 2.008 8.614 8.614 0 0 0 2.639 4.4l6.642 6.031 6.755-6.027a8.615 8.615 0 0 0 2.639-4.4 5.461 5.461 0 0 0 .163-2.012z" transform="translate(.756 -1.076)"></path>
+                    </svg>                
+                </div>
                 <span class="price">${product.price}</span>
-                <button class="addBasketButton">SEPETE EKLE</button>
+                <button class="addBasket-btn">SEPETE EKLE</button>
             `;
-
+debugger
             if (isFavorite(product.id)) {
                 productElement.querySelector(".heart").classList.add("favorited");
             }
@@ -102,13 +108,14 @@
     const buildCSS = () => {
         const css = `
             * {
+                margin:0px;
                 font-family: 'Open Sans', sans-serif !important;
             }
 
             .title {
-                font-size: 24px;
+                font-size: 32px;
+                line-height: 43px;
                 color: #29323b !important;
-                line-height: 33px;
                 font-weight: lighter;
                 margin: 10px 60px 15px;
             }
@@ -122,18 +129,18 @@
             .carousel-wrapper {
                 margin: 10px 30px 15px;
                 position: relative;
-                // overflow:hidden;
             }
 
             .carousel {
                 display: flex;
                 overflow-x: hidden;
-                gap: 10px;
+                gap: 15.9px;
                 transition:0s ease-in;
             }
 
             .carousel-item {
-                min-width: 185px;
+                min-width: 210px;
+                height: auto;
                 text-align: left;
                 position: relative;
                 user-select: none; /* Prevent selection */
@@ -142,8 +149,9 @@
 
             .carousel-item img {
                 position: relative;
-                width: 100%;
-                height: auto;
+                width: 210px;
+                height:280px;
+                cursor:pointer;
                 pointer-events: none; /* Prevent image interactions */
             }
 
@@ -154,25 +162,47 @@
                 text-decoration: none !important;
             }
 
-            .heartContainer {
-                position: absolute;
-                top: 5px;
-                right: 3px;
+            .carousel-item .addBasket-btn {
+                display: none;
+                margin-top: 10px;
+                padding: 8px 15px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
                 cursor: pointer;
-                color:#fff;
-                font-size: 20px;
+                text-align: center;
+            }
+
+            .heartContainer {
+                cursor: pointer;
+                position: absolute;
+                top: 9px;
+                right: 12px;
+                width: 34px;
+                height: 34px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .16);
+                border: solid .5px #b6b7b9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .heart {
-               position: relative;
+                stroke: #fff;
+                transition: fill 0.3s ease, stroke 0.3s ease;
             }
 
-            .favorited {
-                color: blue;
+            .heart.favorited {
+                fill: blue !important;
+                stroke: blue !important;
             }
 
             /* Carousel buttons */
             .carousel-btn {
+                display: block;
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
@@ -185,10 +215,12 @@
             }
 
             .prev-btn {
+                display: block;
                 left: -40px;
             }
 
             .next-btn {
+                display: block;
                 right: -40px;
                 transform: rotate(180deg) translateY(50%);
             }
@@ -197,11 +229,13 @@
             /* Mobile Codes - 991px and lower resolutions */
             @media (max-width: 991px) {
                 .carousel-btn {
-                    display: none;
+                    opacity: 0;
+                    visibility: hidden;
+                    pointer-events: none; /* Tıklanmasını da engelle */
                 }
 
                 .carousel-item {
-                    min-width: 210px;
+                    min-width: 280px;
                 }
 
                 .carousel {
@@ -213,29 +247,19 @@
                     margin: 0 15px;
                 }
 
-                /* Ürün adlarının altına buton eklenecek */
                 .carousel-item p {
                     margin-bottom: 10px;
                 }
 
-                /* Yeni buton */
-                .carousel-item .extra-btn {
+                /* Add To Basket Button */
+                .carousel-item .addBasket-btn {
                     display: block;
-                    margin-top: 10px;
-                    padding: 8px 15px;
-                    background-color: #007bff;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    text-align: center;
                 }
 
-                /* Mobilde daha küçük resimler */
+                /* Mobile Images */
                 .carousel-item img {
-                    width: 80%;
+                    width: 100%;
                     height: auto;
-                    margin: 0 auto;
                 }
             }
         `;
@@ -250,12 +274,13 @@
             heart.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const productId = e.target.dataset.id;
+                debugger
                 toggleFavorite(productId, e.target);
             });
         });
     }
 
-    const setScrollEvent = () => {
+    const setDragEvent = () => {
         const carousel = document.querySelector(".carousel");
         let isDragging = false, startX, scrollLeft;
 
@@ -282,35 +307,15 @@
         });
     };
 
-
-
     const setNavigationButtonEvent = () => {
         document.querySelector(".prev-btn").addEventListener("click", () => scrollCarousel(-1));
         document.querySelector(".next-btn").addEventListener("click", () => scrollCarousel(1));
-
-        window.addEventListener("resize", updateNavButtons);
     }
-
 
     const scrollCarousel = (direction) => {
         const carousel = document.querySelector(".carousel");
         const itemWidth = carousel.querySelector(".carousel-item").offsetWidth + 15;
         carousel.scrollBy({ left: direction * itemWidth, behavior: "smooth" });
-    };
-
-
-    const updateNavButtons = () => {
-        const carousel = document.querySelector(".carousel");
-        const prevBtn = document.querySelector(".prev-btn");
-        const nextBtn = document.querySelector(".next-btn");
-
-        if (carousel.scrollWidth > carousel.clientWidth) {
-            prevBtn.style.display = "block";
-            nextBtn.style.display = "block";
-        } else {
-            prevBtn.style.display = "none";
-            nextBtn.style.display = "none";
-        }
     };
 
     const toggleFavorite = (id, element) => {
@@ -323,11 +328,11 @@
             element.classList.add("favorited");
         }
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(favorites));
-    };
+    };    
 
     const isFavorite = (id) => {
         const favorites = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-        return favorites.includes(id);
+        return favorites.includes(id.toString());
     };
 
     init();
