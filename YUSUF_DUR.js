@@ -118,7 +118,7 @@
                 line-height: 43px;
                 color: #29323b !important;
                 font-weight: lighter !important;
-                padding: 15px 60px 15px;
+                padding: 15px 13% 15px;
             }
 
             /* Carousel Container */
@@ -128,7 +128,7 @@
             }
 
             .carousel-wrapper {
-                margin: 10px 60px 15px;
+                margin: 10px 13% 15px;
                 position: relative;
             }
 
