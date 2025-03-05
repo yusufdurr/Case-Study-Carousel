@@ -144,6 +144,7 @@
                 height: auto;
                 text-align: left;
                 position: relative;
+                cursor: pointer !important;
                 user-select: none; /* Prevent selection */
                 -webkit-user-drag: none; /* Prevent image dragging */
             }
@@ -188,7 +189,8 @@
                 font-size: 18px;
                 display: inline-block;
                 line-height: 22px;
-                font-weight: bold;
+                font-weight: 550;
+                cursor: default;
                 margin: 0px 7px 0px;
             }
 
@@ -245,6 +247,9 @@
             
             /* Mobile Codes - 991px and lower resolutions */
             @media (max-width: 991px) {
+                *{
+                    cursor: pointer !important;
+                }
                 .title {
                     font-size: 24px;
                     color: #29323b;
