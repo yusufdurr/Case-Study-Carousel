@@ -53,6 +53,7 @@
         container.classList.add("carousel-container");
 
         const title = document.createElement("h2");
+        title.classList.add("title");
         title.innerText = "You Might Also Like";
 
         const carouselWrapper = document.createElement("div");
@@ -67,18 +68,18 @@
             productElement.innerHTML = `
                 <a href="${product.url}" target="_blank">
                     <img src="${product.img}" alt="${product.name}" />
-                    <p class="title">${product.name}</p>
+                    <p class="product-name">${product.name}</p>
                 </a>
                 
                 <div class="heartContainer"> 
-                    <svg class="heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20.576" height="19.483" viewBox="0 0 20.576 19.483">
-                        <path fill="white" data-id="${product.id}" stroke="#555" stroke-width="1.5px" d="M19.032 7.111c-.278-3.063-2.446-5.285-5.159-5.285a5.128 5.128 0 0 0-4.394 2.532 4.942 4.942 0 0 0-4.288-2.532C2.478 1.826.31 4.048.032 7.111a5.449 5.449 0 0 0 .162 2.008 8.614 8.614 0 0 0 2.639 4.4l6.642 6.031 6.755-6.027a8.615 8.615 0 0 0 2.639-4.4 5.461 5.461 0 0 0 .163-2.012z" transform="translate(.756 -1.076)"></path>
+                    <svg  fill="currentColor"  xmlns="http://www.w3.org/2000/svg" width="20.576" height="19.483" viewBox="0 0 20.576 19.483">
+                        <path class="heart" fill="white" stroke="#555" data-id="${product.id}" stroke-width="1.5px" d="M19.032 7.111c-.278-3.063-2.446-5.285-5.159-5.285a5.128 5.128 0 0 0-4.394 2.532 4.942 4.942 0 0 0-4.288-2.532C2.478 1.826.31 4.048.032 7.111a5.449 5.449 0 0 0 .162 2.008 8.614 8.614 0 0 0 2.639 4.4l6.642 6.031 6.755-6.027a8.615 8.615 0 0 0 2.639-4.4 5.461 5.461 0 0 0 .163-2.012z" transform="translate(.756 -1.076)"></path>
                     </svg>                
                 </div>
-                <span class="price">${product.price}</span>
-                <button class="addBasket-btn">SEPETE EKLE</button>
+                <span class="price">${product.price} TL </span>
+                <button class="addBasket-btn"> SEPETE EKLE </button>
             `;
-debugger
+
             if (isFavorite(product.id)) {
                 productElement.querySelector(".heart").classList.add("favorited");
             }
@@ -116,8 +117,8 @@ debugger
                 font-size: 32px;
                 line-height: 43px;
                 color: #29323b !important;
-                font-weight: lighter;
-                margin: 10px 60px 15px;
+                font-weight: lighter !important;
+                padding: 15px 60px 15px;
             }
 
             /* Carousel Container */
@@ -127,7 +128,7 @@ debugger
             }
 
             .carousel-wrapper {
-                margin: 10px 30px 15px;
+                margin: 10px 60px 15px;
                 position: relative;
             }
 
@@ -150,28 +151,45 @@ debugger
             .carousel-item img {
                 position: relative;
                 width: 210px;
-                height:280px;
-                cursor:pointer;
+                height: 280px;
+                cursor: pointer !important;
                 pointer-events: none; /* Prevent image interactions */
             }
 
-            .carousel-item p {
-                font-size: 14px;
-                color: #302e2b !important;
-                margin: 3px 5px 10px;
+            .carousel-item a {
                 text-decoration: none !important;
             }
 
             .carousel-item .addBasket-btn {
+                height: 35px;
                 display: none;
-                margin-top: 10px;
-                padding: 8px 15px;
-                background-color: #007bff;
-                color: white;
-                border: none;
+                background-color: #193db0;
+                color: #fff;
+                width: 94%;
                 border-radius: 5px;
-                cursor: pointer;
-                text-align: center;
+                border: none;
+                line-height: 19px;
+                font-size: 14px;
+                font-weight: 400;
+                margin: 20px 7px;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                text-transform: uppercase;
+            }
+
+            .product-name {
+                font-size: 14px;
+                color: #302e2b !important;
+                margin: 3px 7px 10px;
+                min-height: 50px;
+            }
+
+            .price {
+                color: #193db0;
+                font-size: 18px;
+                display: inline-block;
+                line-height: 22px;
+                font-weight: bold;
+                margin: 0px 7px 0px;
             }
 
             .heartContainer {
@@ -191,7 +209,7 @@ debugger
             }
 
             .heart {
-                stroke: #fff;
+                stroke: #555;
                 transition: fill 0.3s ease, stroke 0.3s ease;
             }
 
@@ -199,6 +217,7 @@ debugger
                 fill: blue !important;
                 stroke: blue !important;
             }
+
 
             /* Carousel buttons */
             .carousel-btn {
@@ -215,12 +234,10 @@ debugger
             }
 
             .prev-btn {
-                display: block;
                 left: -40px;
             }
 
             .next-btn {
-                display: block;
                 right: -40px;
                 transform: rotate(180deg) translateY(50%);
             }
@@ -228,6 +245,38 @@ debugger
             
             /* Mobile Codes - 991px and lower resolutions */
             @media (max-width: 991px) {
+                .title {
+                    font-size: 24px;
+                    color: #29323b;
+                    line-height: 33px;
+                    font-weight: lighter;
+                    padding: 10px 10px;
+                    min-height: 63px;
+                    margin: 0;
+                }
+
+                .carousel-container {
+                    background-color: #f4f5f7;
+                    padding: 15px 10px 15px;
+                    overflow-x: hidden; /* Scrollbar'ı kaldır */
+                }
+
+                .carousel {
+                    scroll-snap-type: x mandatory;
+                    overflow-x: auto; /* Kaydırmayı koru ama scrollbar'ı gösterme */
+                    -ms-overflow-style: none;  /* IE ve Edge için scrollbar gizleme */
+                    scrollbar-width: none;  /* Firefox için scrollbar gizleme */
+                }
+
+                .carousel::-webkit-scrollbar {
+                    display: none; /* Chrome, Safari ve Opera için scrollbar gizleme */
+                }
+
+                .carousel-wrapper {
+                    margin: 10px 60px 10px;
+                    position: relative;
+                }
+
                 .carousel-btn {
                     opacity: 0;
                     visibility: hidden;
@@ -269,17 +318,18 @@ debugger
         document.head.appendChild(style);
     };
 
+    // favorite logic 
     const setHeartEvent = () => {
         document.querySelectorAll(".heart").forEach(heart => {
             heart.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const productId = e.target.dataset.id;
-                debugger
                 toggleFavorite(productId, e.target);
             });
         });
     }
 
+    // drag with mouse event logic
     const setDragEvent = () => {
         const carousel = document.querySelector(".carousel");
         let isDragging = false, startX, scrollLeft;
@@ -307,6 +357,7 @@ debugger
         });
     };
 
+    // scroll button logic 
     const setNavigationButtonEvent = () => {
         document.querySelector(".prev-btn").addEventListener("click", () => scrollCarousel(-1));
         document.querySelector(".next-btn").addEventListener("click", () => scrollCarousel(1));
@@ -328,7 +379,7 @@ debugger
             element.classList.add("favorited");
         }
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(favorites));
-    };    
+    };
 
     const isFavorite = (id) => {
         const favorites = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
